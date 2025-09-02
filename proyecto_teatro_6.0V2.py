@@ -88,24 +88,25 @@ while True:
     #PROGRAMA PRINCIPAL
     while menu==True:
         if admin==True:
-            print("\n1-MOSTRAR SHOWS\n2-GENERAR RESERVAS\n3-BUSCAR SHOWS\n4-CERRAR SESION\
-                  \n5-BORRAR SHOW\n6-RESERVAS\n7-GENERAR SHOW\n8-VER USUARIOS\n9-BORRAR USUARIO\n10-BORRAR RESERVAS\n11-SALIRn\n12-editar reserva\n13-editar usuario\n14-editar show")
+            print("\n1-Shows\n2-Reserva\n3-Usuario\n4-Cerrar sesion\n5-SALIR")
             usuario = int(input("Elige una opcion: "))
-            salida = 11
         if admin==False:
-            print("\n1-MOSTRAR SHOWS\n2-GENERAR RESERVA\n3-BUSCAR SHOW\n4-CERRAR SESION\n5-SALIR")
+            print("\n1-Shows\n2-Reserva\n3-Usuario\n4-Cerrar sesion\n5-SALIR")
             usuario = int(input("Elige una opcion: "))
-            salida = 5
         #region opciones
+        #region Shows
         if usuario == 1: #SUB MENU SHOWS
+            if admin==False:
+                print("\n1-Ver show\n2-Buscar show")
+            if admin==True:
+                print("\n1-Ver show\n2-Buscar show\n3-Borrar show\n4-Editar show \n5-Generar show")
             usuario_i = int(input("Elige una opcion: "))
-            if usuario_i == 1:   #VER SHOW
 
+            if usuario_i == 1:   #VER SHOW
                 matriz_ordenada = sorted(datos_globales, key=lambda x: x[5])
                 ver_m(matriz_ordenada)
             
-                print("AGREGADO CORRECTAMENTE!")
-            elif usuario_i == 3: #BUSCAR SHOW
+            elif usuario_i == 2: #BUSCAR SHOW
 
                 print("\n1-BUSCAR POR ID\n2-BUSCAR POR FECHA")
 
@@ -126,25 +127,8 @@ while True:
                     else:
                         print("No coincide con ningún id.")
 
-                elif elec == 2: #GENERAR RESERVA
-                
-                    año = int(input("Ingrese año: "))
-                    mes = int(input("Ingrese mes: "))
-                    dia = int(input("Ingrese dia: "))
-                    fecha_buscada = datetime(año, mes, dia).date()
 
-                    lista_temp = []
-
-                    for i in datos_globales:
-                        if i[5] == fecha_buscada:
-                            lista_temp.append(i)
-
-
-                    if len(lista_temp) > 0:
-                        ver_m(lista_temp) 
-                    else:
-                        print("No hay fechas disponibles.")
-            elif usuario_i == 4: #BORRAR SHOW
+            elif usuario_i == 3 and admin==True: #BORRAR SHOW
                 eleccion = int(input("Ingrese id del show: "))
 
                 # Borrar el show
@@ -161,7 +145,9 @@ while True:
                 solo_ids_show.clear()
                 for s in datos_globales:
                     solo_ids_show.append(s[0])
-            elif usuario_i == 5: #EDITAR SHOW
+                print("show eliminado")
+
+            elif usuario_i == 4 and admin==True: #EDITAR SHOW
                 print("gat")
 
                 eleccion = int(input("Seleccione el id del show: "))
@@ -169,7 +155,7 @@ while True:
                 for i in datos_globales:
 
                     if i[0] == eleccion:
-                        i[1] = input("seleccion el tipo de evento: ")
+                        i[1] = input("seleccione porque tipo de evento quiere cambiarlo: ")
 
                         fecha = i[5]
 
@@ -181,9 +167,9 @@ while True:
                                 lista_temp2.append(u)
 
                         if suma <= 750:
-                            suma_aux = int(input("ingresa la cantiadad de minutos: "))
+                            suma_aux = int(input("ingresa la cantidad de minutos: "))
                             while (suma + suma_aux) >= 750:
-                                suma_aux = int(input("ingresa la cantiadad de minutos: "))
+                                suma_aux = int(input("ingresa la cantidad de minutos: "))
                             i[2] = suma_aux
                             
                         else:
@@ -192,59 +178,83 @@ while True:
                         i[3] = input("seleccion la cant espectadores: ")
 
                         i[4] = input("seleccion la cant esp disponibles: ")
-            elif usuario_i == 6: #GENERAR SHOW
-                if usuario_i == 1: #generar show
+            elif usuario_i == 5 and admin==True: #GENERAR SHOW
+                id_show = id_alt()
 
-                    id_show = id_alt()
+                tipo_Evento = input("Ingrese el tipo de evento: ")
+                tipo_Evento=tipo_Evento.ljust(20, " ")
 
-                    tipo_Evento = input("Ingrese el tipo de evento: ")
-                    tipo_Evento=tipo_Evento.ljust(20, " ")
+                duracion = int(input("Ingrese la duracion del evento: "))
 
-                    duracion = int(input("Ingrese la duracion del evento: "))
+                espectadores = int(input("Ingrese la capacidad maxima de espectadores: "))
 
-                    espectadores = int(input("Ingrese la capacidad maxima de espectadores: "))
-
-                    espacios_disponibles = random.randint(0,20)
+                espacios_disponibles = random.randint(0,20)
 
 
-                    año = int(input("Ingrese año: "))
-                    mes = int(input("Ingrese mes: "))
-                    dia = int(input("Ingrese dia: "))
-                    fecha = datetime(año, mes, dia).date()
+                año = int(input("Ingrese año: "))
+                mes = int(input("Ingrese mes: "))
+                dia = int(input("Ingrese dia: "))
+                fecha = datetime(año, mes, dia).date()
 
-                    #comprobar si se pasan los minuts
+                #comprobar si se pasan los minuts
 
-                    lista_temp = []
+                lista_temp = []
 
-                    for i in datos_globales:
-                        if i[5] == fecha:
-                            lista_temp.append(i)
+                for i in datos_globales:
+                    if i[5] == fecha:
+                        lista_temp.append(i)
 
 
-                    suma = 0
-                    columna = 2
-                    for f in lista_temp:
-                        suma += f[columna]
-                    
-                    if (suma + duracion) < 720:
+                suma = 0
+                columna = 2
+                for f in lista_temp:
+                    suma += f[columna]
+                
+                if (suma + duracion) < 720:
 
-                        datos_globales.append([id_show,tipo_Evento,duracion,espectadores,espacios_disponibles,fecha])
-                    else:
-                        print("No hay espacio en el dia para el show ingresado.")
-
-      
+                    datos_globales.append([id_show,tipo_Evento,duracion,espectadores,espacios_disponibles,fecha])
+                else:
+                    print("No hay espacio en el dia para el show ingresado.")
+#region reservas
         elif usuario == 2: #SUB MENU RESERVAS , CERRAR SESION
+            if admin==False:
+                print("\n1-Ver reserva\n2-Generar reserva")
+            if admin==True:
+                print("\n1-Ver reserva\n2-Generar reserva\n3-Borrar reserva\n4-Gererar reserva (pregunta)\n5-Editar reserva")
             usuario_i = int(input("Elige una opcion: "))
-            if usuario_i == 2: #BORRAR RESERVA
+
+            if usuario_i == 1:  #ver reserva     
+                ver_m2(matriz2)
+
+            elif usuario_i == 2: #GENERAR RESERVA
+            
+                año = int(input("Ingrese año: "))
+                mes = int(input("Ingrese mes: "))
+                dia = int(input("Ingrese dia: "))
+                fecha_buscada = datetime(año, mes, dia).date()
+
+                lista_temp = []
+
+                for i in datos_globales:
+                    if i[5] == fecha_buscada:
+                        lista_temp.append(i)
+
+
+                if len(lista_temp) > 0:
+                    ver_m(lista_temp) 
+                else:
+                    print("No hay fechas disponibles.")
+
+            elif usuario_i == 3 and admin==True: #BORRAR RESERVA
                 eleccion = int(input("Seleccione id de reserva a eliminar: "))
 
 
                 for i in datos_globales_reserva[:]:
                     if i[0] == eleccion:
                         datos_globales_reserva.remove(i)
-            elif usuario_i == 3:  #ver reserva     
-                ver_m2(matriz2)
-            elif usuario_i == 4: #GENERAR RESERVA
+                print("reserva eliminada")
+
+            elif usuario_i == 4 and admin==True: #GENERAR RESERVA
 
                 id_reserva = id_alt_r()  # Llamar a la función
 
@@ -281,7 +291,7 @@ while True:
                         i[4] = i[4] - 1
                 datos_globales_reserva.append([id_reserva, id_usuario, ubicacion_e, show])
 
-            elif usuario_i == 5: #EDITAR RESERVA
+            elif usuario_i == 5 and admin==True: #EDITAR RESERVA
                 print("gat")
 
                 eleccion = int(input("Seleccione el id de reserva a editar: "))
@@ -290,13 +300,16 @@ while True:
                     if i[0] == eleccion:
                         i[2] = int(input("ingrese ubicacion: "))
                         i[3] = input("ingresar show: ")     
-        
-        
+#region usuarios
         elif usuario == 3: #SUBMENU USUARIOS
+            if admin==False:
+                print("\n1-Ver usuario\n2-¿¿¿¿Editar usuario????")
+            if admin==True:
+                print("\n1-Ver usuario\n2-Editar usuario\n3-Borrar usuario")
             usuario_i = int(input("Elige una opcion: "))
-            if usuario_i == 1: #EDITAR USUARIO
-
-
+            if usuario_i == 1: #VER USUARIOS
+                ver_m3(matriz3) 
+            elif usuario_i == 2: #EDITAR USUARIO
                 print("gat")
 
                 eleccion = int(input("Seleccione el id de usuario a editar: "))
@@ -307,9 +320,8 @@ while True:
                         i[2] = int(input("Ingrese dni: "))
                         i[3] = int(input("ingrese telefono: "))
                         i[4] = input("Ingrese el correo: ")
-            elif usuario_i == 2: #VER USUARIOS
-                ver_m3(matriz3) 
-            elif usuario == 3: #BORRAR USUARIO
+
+            elif usuario == 3 and admin==True: #BORRAR USUARIO
                 eleccion = int(input("Seleccione id a eliminar: "))
 
                 for i in datos_globales_usuarios:
@@ -321,10 +333,12 @@ while True:
                         datos_globales_reserva.remove(i)
 
         
-        elif usuario == salida: #SALIR
-            break
 
         elif usuario == 4: #CERRAR SESION
             admin=False
             menu=False
             inicio=True
+
+        elif usuario == 5: #SALIR
+            break
+
