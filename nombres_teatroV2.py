@@ -29,9 +29,9 @@ ids_usuario = []
 
 solo_ids_show = []
 
-datos_globales_contraseñas=[101010]
+datos_globales_contraseñas=[]
 
-dni_usuarios= [12345678]
+dni_usuarios= []
 
 datos_de_ingreso_dni=[]
 
