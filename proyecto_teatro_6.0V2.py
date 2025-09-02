@@ -2,12 +2,12 @@ from nombres_teatroV2 import *
 from funciones_de_teatroV2 import *
 
 inicio=True
-menu=True
-admin=True
+menu=False
+admin=False
 
 #region ingreso
 while True:
-    while inicio==False:
+    while inicio==True:
 
         ingreso=int(input("Si posee un usuario presione 0 para ingresar.\nSi no posee presione 1 para crear un usuario nuevo:"))
         while ingreso !=0 and ingreso !=1:
