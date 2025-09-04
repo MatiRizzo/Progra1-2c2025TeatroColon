@@ -41,7 +41,9 @@ dni_admins=[47346945]
 
 datos_globales_dni=[47346945,46624535,000]
 
+ids_shows=[]
 
+ids_reserva=[]
 #MATRICES
 datos_globales = []
 
