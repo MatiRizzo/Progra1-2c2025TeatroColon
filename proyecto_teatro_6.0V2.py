@@ -1,6 +1,8 @@
 from nombres_teatroV2 import *
-from funciones_de_teatroV2 import *
-from ingreso import registro, login 
+from reserva import * 
+from shows import *
+from Usuarios import* 
+from ingreso import *
 
 inicio=True
 start = True
@@ -24,9 +26,7 @@ while start:
                 print("algo a salido mal")
                 ingreso=int(input("Si posee un usuario presione 0 para ingresar.\nSi no posee presione 1 para crear un usuario nuevo:"))
         elif ingreso==1:
-            ingr=registro()
-        
-        
+            ingr=registrar()
         
     #region program princ
     #PROGRAMA PRINCIPAL
@@ -37,8 +37,8 @@ while start:
         if admin==False:
             print("\n1-Shows\n2-Reserva\n3-Usuario\n4-Cerrar sesion\n5-SALIR")
             usuario = int(input("Elige una opcion: "))
-        #region opciones
-        #region Shows
+#region opciones
+#region Shows
         if usuario == 1: #SUB MENU SHOWS
             if admin==False:
                 print("\n1-Ver show\n2-Buscar show")
@@ -276,14 +276,10 @@ while start:
                     if i[1] == eleccion:
                         datos_globales_reserva.remove(i)
 
-        
-
         elif usuario == 4: #CERRAR SESION
             admin=False
             inicio=True
             menu=False
-
-
 
         elif usuario == 5: #SALIR
             menu = False
