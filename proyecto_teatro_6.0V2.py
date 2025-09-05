@@ -1,88 +1,32 @@
 from nombres_teatroV2 import *
 from funciones_de_teatroV2 import *
+from ingreso import registro, login 
 
 inicio=True
-menu=True
-admin=True
-
+start = True
 #region ingreso
-while True:
-    while inicio==False:
-
+while start:
+    while inicio==True:
         ingreso=int(input("Si posee un usuario presione 0 para ingresar.\nSi no posee presione 1 para crear un usuario nuevo:"))
-        while ingreso !=0 and ingreso !=1:
-            print("Ingreso no valido seleccione 1 o 0: ")
+        if ingreso!=0 and ingreso!=1:
+            print("numero fuera del rango")
             ingreso=int(input("Si posee un usuario presione 0 para ingresar.\nSi no posee presione 1 para crear un usuario nuevo:"))
-
-
-        if ingreso==0:
-            dni_ingres=int(input("escriba su dni para verificacion "))
-            while dni_ingres not in datos_de_ingreso_dni and dni_ingres not in dni_admins:
-                print("id no encontrado revise que este bien su dni")
-                dni_ingres=int(input("escriba su dni para verificacion "))
-
-            if dni_ingres in datos_de_ingreso_dni or dni_ingres in dni_admins:
-                contraseña=input("escriba su contraseña de usuario ")
-                
-                while (contraseña not in datos_globales_contraseñas and dni_ingres not in datos_de_ingreso_dni) \
-                        and (contraseña not in contraseñas_admin and dni_ingres not in dni_admins):
-
-                    print("su contraseña o dni no son correctos")
-                    print("si desea cambiar el dni seleccione 1 si quiere cambiar la contraseña elija 2 y " \
-                    "si quiere volver al elegir para crear un usuario nuevo")
-
-                    vuelta=int(input(""))
-                
-                    while vuelta not in (0,1,2):
-                        print("ese numero no esta dentro del rango")
-                        print("si desea cambiar el dni seleccione 1 si quiere cambiar la contraseña elija 2 y" \
-                        " si quiere volver al elegir para crear un usuario nuevo ")
-
-                        vuelta=int(input(""))
-                
-                    if vuelta==1:
-                        dni_ingres=int(input("escriba su dni para verificacion"))
-                
-                    elif vuelta==2:
-                        contraseña=(input("escriba su contraseña para verificacion"))
-            
-                    elif vuelta==0:
-                        ingreso=int(input("Si posee un usuario presione 0 para ingresar.\n" \
-                        "Si no posee presione 1 para crear un usuario nuevo:"))
-                print("llegaste aca")
-                if contraseña in contraseñas_admin and dni_ingres  in dni_admins:
-                    menu=True
-                    admin=True
-                    print("ingreso consegido")
-                    inicio=False
-                elif contraseña not in contraseñas_admin and dni_ingres not in dni_admins:
-                    verificacion=busqueda(dni_ingres,contraseña)
-                    if verificacion==True:
-                        print("ingresando a su cuenta")
-                        menu=True
-                        inicio=False
-
-        if ingreso==1:
-            num_usuario=id_user()
-            nombre=input("escriba el nombre que desee usar ")
-            dni_cread=int(input("escriba el numero de su dni "))
-            while dni_cread<0:
-                print("su dni es menor a  porfavor revise nuevamente su dni ")
-                dni_cread=int(input("escriba el numero de su dni "))
-            datos_de_ingreso_dni.append(dni_cread)
-            telefono_cread=int(input("escriba su numero de telefono sin codigo de area "))
-            while telefono_cread<1100000000 or telefono_cread>1199999999:
-                print("numero no valido por favor presione un numero dentro del rango de 1100000000 y 1199999999")
-                telefono_cread=int(input("escriba su numero de telefono sin codigo de area "))
-            email=input("escriba su email ")
-            while "@gmail.com" not in email and "@hotmail.com" not in email and "@yahoo.com" not in email: 
-                print("algo esta mal con su email porfavor revise si ha puesto el @gmail,hotmail o yahoo")
-                email=input("escriba su email ")
-            activo=True
-            contraseña=input("escriba la contraseña que desea ")
-            datos_globales_contraseñas.append(contraseña)
-            datos_globales_usuarios.append([num_usuario, nombre, dni_cread, telefono_cread, email, activo])
-
+        elif ingreso==0:
+            log=login()
+            if log=="admin":
+                admin=True
+                menu=True
+                inicio=False
+            elif log=="usuario":
+                menu=True
+                inicio=False
+            elif log=="fallo":
+                print("algo a salido mal")
+                ingreso=int(input("Si posee un usuario presione 0 para ingresar.\nSi no posee presione 1 para crear un usuario nuevo:"))
+        elif ingreso==1:
+            ingr=registro()
+        
+        
         
     #region program princ
     #PROGRAMA PRINCIPAL
@@ -336,9 +280,13 @@ while True:
 
         elif usuario == 4: #CERRAR SESION
             admin=False
-            menu=False
             inicio=True
+            menu=False
+
+
 
         elif usuario == 5: #SALIR
-            break
+            menu = False
+            start = False
+    
 
