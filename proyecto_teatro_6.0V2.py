@@ -1,8 +1,6 @@
 from nombres_teatroV2 import *
-from entidades.reserva import *
-from entidades.shows import *
-from entidades.Usuarios import* 
 from ingreso import *
+from entidades import *
 
 inicio=True
 start = True
