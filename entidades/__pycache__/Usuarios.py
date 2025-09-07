@@ -4,11 +4,9 @@ from nombres_teatroV2 import *
 
 # Función para generar IDs de usuarios
 def id_user():
-    def n_alt():
-        return random.randint(1000,9999)
-    n = n_alt()
+    n=random.randint(1000,9999)
     while n in id_usuarios:
-        n = n_alt()
+        n=random.randint(1000,9999)       
     id_usuarios.append(n)
     return n
 

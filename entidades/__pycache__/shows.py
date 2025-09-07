@@ -4,11 +4,9 @@ from datetime import datetime, timedelta
 
 # Función para generar IDs de shows
 def id_alt():
-    def n_alt():
-        return random.randint(1000, 9999)
-    n = n_alt()
+    n=random.randint(1000, 9999)
     while n in ids_shows:
-        n = n_alt()
+        n=random.randint(1000, 9999)
     ids_shows.append(n)
     return n
 

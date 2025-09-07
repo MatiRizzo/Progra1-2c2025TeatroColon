@@ -3,11 +3,9 @@ from nombres_teatroV2 import *
 
 # Función para generar IDs de reserva
 def id_alt_r():
-    def n_alt():
-        return random.randint(1,1000)
-    n = n_alt()
+    n=random.randint(1,1000)
     while n in ids_reserva:
-        n = n_alt()
+        n = random.randint(1000, 9999)
     ids_reserva.append(n)
     return n
 
