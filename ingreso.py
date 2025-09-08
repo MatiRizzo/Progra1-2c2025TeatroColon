@@ -58,7 +58,7 @@ def registrar():
         print("Número no válido (1100000000 a 1199999999)")
 
         telefono_cread = int(input("Escriba su número de teléfono sin código de área: "))
-    telefono_organizado= f"{telefono_cread[:2]}-{telefono_cread[2:6]}-{telefono_cread[6:]}"
+    telefono_organizado= f"{telefono_cread[1:]}-{telefono_cread[2:6]}-{telefono_cread[6:]}"
 
     email = input("Escriba su email: ")
     coincidencias = re.findall("@", email)       
