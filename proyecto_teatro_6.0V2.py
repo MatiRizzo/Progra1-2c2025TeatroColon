@@ -7,34 +7,31 @@ start = True
 #region ingreso
 while start:
     while inicio==True:
-        ingreso=int(input("Si posee un usuario presione 0 para ingresar.\nSi no posee presione 1 para crear un usuario nuevo:"))
+        ingreso=imprimir_ingreso()
         if ingreso!=0 and ingreso!=1:
             print("numero fuera del rango")
-            ingreso=int(input("Si posee un usuario presione 0 para ingresar.\nSi no posee presione 1 para crear un usuario nuevo:"))
+            ingreso=imprimir_ingreso()
+
         elif ingreso==0:
             log=login()
-            if log=="admin":
+            if log==True:
                 admin=True
                 menu=True
                 inicio=False
-            elif log=="usuario":
+            elif log==False:
                 menu=True
                 inicio=False
-            elif log=="fallo":
-                print("algo a salido mal")
-                ingreso=int(input("Si posee un usuario presione 0 para ingresar.\nSi no posee presione 1 para crear un usuario nuevo:"))
+                admin=False
         elif ingreso==1:
             ingr=registrar()
         
     #region program princ
     #PROGRAMA PRINCIPAL
     while menu==True:
-        if admin==True:
-            print("\n1-Shows\n2-Reserva\n3-Usuario\n4-Cerrar sesion\n5-SALIR")
-            usuario = int(input("Elige una opcion: "))
-        if admin==False:
-            print("\n1-Shows\n2-Reserva\n3-Usuario\n4-Cerrar sesion\n5-SALIR")
-            usuario = int(input("Elige una opcion: "))
+
+        print("\n1-Shows\n2-Reserva\n3-Usuario\n4-Cerrar sesion\n5-SALIR")
+        usuario = int(input("Elige una opcion: "))
+
 #region opciones
 #region Shows
         if usuario == 1: #SUB MENU SHOWS
